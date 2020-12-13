@@ -7,13 +7,25 @@ class Game:
         self.width = width
         self.height = height
         self.map_controller: MapController = MapController()
-        self.map_controller.init("assets/maps/map00.json")
 
+        py.init()
         py.display.set_caption("Cromagnon 3000")
 
     def start(self):
-        self.window: py.Surface = py.display.set_mode((self.width, self.height), py.DOUBLEBUF)
-        while True:
-            self.map_controller.draw(self.window)
+        self.map_controller.init("assets/maps/map00.json", self.width, self.height)
+        self.map_controller.move_view_to_cell(0, 0)
+
+        run = True
+
+        while run:
+            self.map_controller.clear()
+            event = py.event.poll()
+            if event.type == py.constants.QUIT:
+                run = False
+
+            key_pressed = py.key.get_pressed()
+            self.map_controller.handle_key(key_pressed)
+
+            self.map_controller.draw()
             py.display.flip()
             pass

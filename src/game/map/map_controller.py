@@ -6,12 +6,11 @@ class MapController:
     def __init__(self):
         pass
 
-    def init(self, file_path: str, width: int, height: int):
-        self.window: py.Surface = py.display.set_mode((width, height), py.DOUBLEBUF)
+    def init(self, file_path: str, window: py.Surface, width: int, height: int):
 
         self.width = width
         self.height = height
-
+        self.window = window
         self.map = Map()
         self.map.load_from_file(file_path)
 
@@ -21,8 +20,6 @@ class MapController:
     def move_view_to_cell(self, cell_x: int, cell_y: int):
         self.shift_x = cell_x * self.map.sprite_width + self.width / 2
         self.shift_y = cell_y * self.map.sprite_height + self.height / 2
-
-        print("Shift : {} {}".format(self.shift_x, self.shift_y))
 
     def move(self, vector: tuple):
         self.shift_x += vector[0]

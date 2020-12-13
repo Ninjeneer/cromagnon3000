@@ -1,5 +1,6 @@
 import pygame as py
 from game.map.map_controller import MapController
+from game.ui.hud import Hud
 
 
 class Game:
@@ -12,11 +13,13 @@ class Game:
         py.display.set_caption("Cromagnon 3000")
 
     def start(self):
-        self.map_controller.init("assets/maps/map00.json", self.width, self.height)
+        self.window: py.Surface = py.display.set_mode((self.width, self.height), py.DOUBLEBUF)
+        self.map_controller.init("assets/maps/map00.json", self.window, self.width, self.height)
         self.map_controller.move_view_to_cell(0, 0)
 
+        self.hud = Hud(self.window)
+        life = 100
         run = True
-
         while run:
             self.map_controller.clear()
             event = py.event.poll()
@@ -27,5 +30,8 @@ class Game:
             self.map_controller.handle_key(key_pressed)
 
             self.map_controller.draw()
+            self.hud.display_life_bar(life)
+            life -= 1
             py.display.flip()
+            py.time.wait(10) #On ralenti la boucle de 5 milisecondes
             pass

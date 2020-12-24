@@ -18,7 +18,7 @@ class Game:
         self.map_controller.move_view_to_cell(0, 0)
 
         self.hud = Hud(self.window)
-        life = 100
+
         run = True
         while run:
             self.map_controller.clear()
@@ -30,8 +30,8 @@ class Game:
             self.map_controller.handle_key(key_pressed)
 
             self.map_controller.draw()
-            self.hud.display_life_bar(life)
-            life -= 1
+            self.hud.display_life_bar(100)
+
             py.display.flip()
-            py.time.wait(10) #On ralenti la boucle de 5 milisecondes
+            py.time.wait(10)
             pass

@@ -3,6 +3,8 @@ from game.map.map import Map
 
 class MapController:
 
+    _shift_speed = 1.5
+
     def __init__(self):
         pass
 
@@ -43,13 +45,13 @@ class MapController:
 
     def handle_key(self, key_pressed: []):
         if key_pressed[py.constants.K_z] or key_pressed[py.constants.K_UP]:
-            self.move((0, 1))
+            self.move((0, MapController._shift_speed))
 
         if key_pressed[py.constants.K_s] or key_pressed[py.constants.K_DOWN]:
-            self.move((0, -1))
+            self.move((0, -MapController._shift_speed))
 
         if key_pressed[py.constants.K_q] or key_pressed[py.constants.K_LEFT]:
-            self.move((1, 0))
+            self.move((MapController._shift_speed, 0))
 
         if key_pressed[py.constants.K_d] or key_pressed[py.constants.K_RIGHT]:
-            self.move((-1, 0))
+            self.move((-MapController._shift_speed, 0))
